@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../assets/css/auth-layout.css';
-import bookstore_logo from '../../assets/images/bookstore-logo.png';
+import taskboard_logo from '../../assets/images/taskboard-logo.png';
 import { Link } from "react-router-dom";
 
 const AuthLayout = ({ type, children }) => {
@@ -9,7 +9,7 @@ const AuthLayout = ({ type, children }) => {
     return (
         <div className='reg-container'>
             <div className="reg-left">
-                <img src={ bookstore_logo } alt="company-logo" />
+                <img src={ taskboard_logo } alt="company-logo" />
             </div>
             <div className="reg-right">
                 <div className="reg-right-header">

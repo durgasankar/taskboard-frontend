@@ -17,7 +17,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1>📚 {userInfo.firstName}'s Dashboard</h1>
+            <h1>✅{userInfo.firstName}'s TaskHub</h1>
             <input
                 type="text"
                 placeholder="Search Task..."
