@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../assets/css/auth-layout.css';
-import taskboard_logo from '../../assets/images/taskboard-logo.png';
+import taskboard_logo from '../../assets/images/taskboard-homepage-logo.png';
 import { Link } from "react-router-dom";
 
 const AuthLayout = ({ type, children }) => {
