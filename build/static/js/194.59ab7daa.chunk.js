@@ -1,0 +1,2 @@
+"use strict";(globalThis.webpackChunktaskboard_frontend=globalThis.webpackChunktaskboard_frontend||[]).push([[194],{9194(a,n,d){d.r(n),d.d(n,{default:()=>e});d(5043);var s=d(579);const e=()=>(0,s.jsx)("div",{children:(0,s.jsx)("h1",{children:"Page not Found."})})}}]);
+//# sourceMappingURL=194.59ab7daa.chunk.js.map
