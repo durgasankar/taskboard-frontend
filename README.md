@@ -1,70 +1,149 @@
-# Getting Started with Create React App
+# Task Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based Task Management application built using **React**, **Redux Toolkit**, **Redux Thunk**, **React Router**, and **Material UI**.  
+The application demonstrates clean state management, scalable architecture, and thoughtful UI/UX decisions while fulfilling all the given functional requirements.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Overview
 
-### `npm start`
+This application allows authenticated users to view, manage, and update tasks efficiently.  
+It focuses on **predictable state management**, **component reusability**, and **user-friendly interactions**, following modern React and Redux best practices.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+- **React 19**
+- **Redux Toolkit**
+- **Redux Thunk** (for async actions)
+- **React Router v7**
+- **Material UI (MUI v9)**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ✅ Implemented Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔐 Authentication
+- User **Registration** and **Login**
+- Client-side authentication using local storage
+- Protected routes using custom `ProtectedRoute`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📋 Task List (Dashboard)
+- Tasks displayed in a **table format**
+- Each task shows:
+  - Title
+  - Assigned To (email)
+  - Status (Open, In-Progress, Under-Review, Done)
+  - Priority (High / Medium / Low)
+  - Start Date
+  - End Date (only when task is Done)
+- Row click navigates to **Task Details Page**
+- Edit and Delete actions available per row
+- Pagination support
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🔁 Sorting
+- Sorting enabled using header arrows for:
+  - Title
+  - Assigned To
+  - Status
+  - Priority
+- Sorting order toggles between ascending and descending
+- Sorting works seamlessly with pagination and filtering
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### ✏️ Edit Task
+- Edit action opens a **modal dialog**
+- All task fields can be updated (status, priority, assignee, etc.)
+- Form inputs are reusable custom components
+- Task updates are handled via Redux state
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 🗑 Delete Task
+- Delete button opens a confirmation dialog
+- Task is removed only after explicit confirmation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 📄 Task Details Page
+- Accessible via `/tasks/:id`
+- Displays full task information
+- Supports browser refresh and direct URL access
+- Shows loading skeleton while data is fetched
+- Redirects safely if the task does not exist
+- Includes a “Back to all tasks” button
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🔄 Async Data Handling
+- Tasks are fetched asynchronously using Redux Thunk
+- Initial task data loaded from:
+ 
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+ https://jsonplaceholder.typicode.com/todos
+- Tasks are enriched client-side with:
+- Priority
+- Dates
+- Assigned email
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🧠 Thought Process & Design Decisions (Short)
 
-### Advanced Configuration
+### State Management
+- Redux Toolkit was chosen for **predictable state updates** and cleaner reducer logic
+- Async logic is isolated using `createAsyncThunk`
+- Selectors are used to derive filtered, sorted, and paginated data efficiently
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Data Flow
+- Followed a clear pipeline:
 
-### Deployment
+Fetch → Filter → Sort → Paginate → Render
+- This ensures consistent behavior and avoids UI bugs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### UI & UX
+- Material UI ensures consistency, accessibility, and responsiveness
+- Edit actions use modals to avoid unnecessary page navigation
+- Skeleton loaders improve perceived performance during async operations
 
-### `npm run build` fails to minify
+### Scalability
+- Reusable components (`CustomButton`, `CustomTextInput`, etc.)
+- Centralized utilities for sorting, validation, and date formatting
+- Clean separation of concerns across pages, components, and reducers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 📁 Project Structure
+
+```text
+src/
+├── components/
+│   ├── common/
+│   ├── layout/
+│   └── tasks/
+├── pages/
+│   ├── Dashboard.jsx
+│   ├── TaskDetailsPage.jsx
+│   ├── Login.jsx
+│   └── Registration.jsx
+├── reducers/
+│   ├── taskSlices.js
+│   ├── taskThunks.js
+│   └── taskSelector.js
+├── routes/
+│   ├── ProtectedRoute.jsx
+│   └── PublicRoute.jsx
+├── utils/
+│   ├── date.js
+│   ├── sort.js
+│   └── validation.js
+└── App.jsx
+
+
