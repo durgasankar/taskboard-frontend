@@ -23,6 +23,10 @@ const Dashboard = () => {
     const [order, setOrder] = useState("asc");
     const [orderBy, setOrderBy] = useState("");
 
+    useEffect(() => {
+        dispatch(fetchTasks());
+    }, [dispatch]);
+
     const totalPages = useMemo(() => {
         return Math.ceil(filteredTasks.length / pageSize);
     }, [filteredTasks.length, pageSize]);
@@ -44,10 +48,6 @@ const Dashboard = () => {
         },
         [order, orderBy]
     );
-
-    useEffect(() => {
-        dispatch(fetchTasks());
-    }, [dispatch]);
 
     const handleDelete = useCallback(() => {
         dispatch(deleteTask(deleteId));

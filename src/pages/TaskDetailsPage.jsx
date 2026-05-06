@@ -1,6 +1,6 @@
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Box, Chip, Typography, Divider, Skeleton } from "@mui/material";
+import { Box, Chip, Typography, Divider } from "@mui/material";
 import { unixToDate } from "../utils/date";
 import CustomButton from "../components/common/CustomButton";
 
