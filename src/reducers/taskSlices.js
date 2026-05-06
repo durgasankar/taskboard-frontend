@@ -7,6 +7,8 @@ const taskSlice = createSlice({
         list: [],
         loading: false,
         error: null,
+        // pagination
+        searchQuery: ''
     },
     reducers: {
         deleteTask(state, action) {
@@ -14,24 +16,27 @@ const taskSlice = createSlice({
         },
         updateTask(state, action) {
             const index = state.list.findIndex(task => task.id === action.payload.id);
-            state.list[index] = action.payload;
+            if (index !== -1) {
+                state.list[index] = action.payload;
+            }
         },
+        setSearchQuery(state, action) {
+            state.searchQuery = action.payload;
+        }
     },
     extraReducers: builder => {
         builder
             .addCase(fetchTasks.pending, state => {
                 state.loading = true;
-            })
-            .addCase(fetchTasks.fulfilled, (state, action) => {
+            }).addCase(fetchTasks.fulfilled, (state, action) => {
                 state.loading = false;
                 state.list = action.payload;
-            })
-            .addCase(fetchTasks.rejected, (state, action) => {
+            }).addCase(fetchTasks.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message;
-            });
+                state.error = action.error.message ?? 'Something went wrong';
+            })
     }
 });
 
-export const { deleteTask, updateTask } = taskSlice.actions;
+export const { deleteTask, updateTask, setSearchQuery } = taskSlice.actions;
 export default taskSlice.reducer;

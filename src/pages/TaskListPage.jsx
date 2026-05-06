@@ -5,10 +5,13 @@ import { fetchTasks } from "../reducers/taskThunks";
 import { deleteTask } from "../reducers/taskSlices";
 import TaskTable from "../components/tasks/TaskTable";
 import DeleteConfirmDialog from "../components/tasks/DeleteConfirmDialog";
+import { selectFilteredTasks } from "../reducers/taskSelector";
 
 const TaskListPage = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector(state => state.tasks.list);
+  // const tasks = useSelector(state => state.tasks.list);
+  const tasks = useSelector(selectFilteredTasks);
+
   const { showToast } = useToast();
 
   const [deleteId, setDeleteId] = useState(null);

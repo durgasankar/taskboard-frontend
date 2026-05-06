@@ -1,9 +1,13 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 import '../../assets/css/header.css';
 import useToast from '../../hooks/useToast';
+import { customDebounce } from '../../utils/customDebounce';
+import { setSearchQuery } from '../../reducers/taskSlices';
 
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const { successToast } = useToast();
     const userInfo = JSON.parse(localStorage.getItem('userinfo'));
     console.log(userInfo)
@@ -15,12 +19,17 @@ const Header = () => {
         navigate('/signin', { replace: true });
     }
 
+    const debouncedSearch = value => {
+        customDebounce(dispatch(setSearchQuery(value)), 400);
+    }
+
     return (
         <header className="header">
-            <h1>✅{userInfo.firstName}'s TaskHub</h1>
+            <h1>✅{ userInfo.firstName }'s TaskHub</h1>
             <input
                 type="text"
                 placeholder="Search Task..."
+                onChange={ event => debouncedSearch(event.target.value) }
             />
             <button className="logout-btn" onClick={ handleLogout }>
                 Logout
