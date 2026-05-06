@@ -14,7 +14,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { unixToDate } from '../../utils/date';
 
-const TaskTable = ({ tasks, onDelete, onEdit }) => {
+const headCells = [
+    { id: "title", label: "Title" },
+    { id: "completed", label: "Status" },
+    { id: "startDate", label: "Start Date" },
+    { id: "endDate", label: "End Date" },
+    { id: "priority", label: "Priority" }
+];
+
+const TaskTable = ({ tasks, onDelete, onEdit, order, orderBy, onRequestSort }) => {
     const navigate = useNavigate();
 
     return (
@@ -31,18 +39,22 @@ const TaskTable = ({ tasks, onDelete, onEdit }) => {
             >
                 <TableHead>
                     <TableRow>
-                        { ["Title", "Status", "Start Date", "End Date", "Priority"].map(col => (
+                        { headCells.map((headCell) => (
                             <TableCell
-                                key={ col }
+                                key={ headCell.id }
+                                sortDirection={ orderBy === headCell.id ? order : false }
                                 sx={ { fontWeight: 600, backgroundColor: "#fafafa" } }
                             >
-                                <TableSortLabel>{ col }</TableSortLabel>
+                                <TableSortLabel
+                                    active={ orderBy === headCell.id }
+                                    direction={ orderBy === headCell.id ? order : "asc" }
+                                    onClick={ () => onRequestSort(headCell.id) }
+                                >
+                                    { headCell.label }
+                                </TableSortLabel>
                             </TableCell>
                         )) }
-                        <TableCell
-                            sx={ { fontWeight: 600, backgroundColor: "#fafafa" } }
-                            align="right"
-                        >
+                        <TableCell align="right" sx={ { fontWeight: 600, backgroundColor: "#fafafa" } }>
                             Actions
                         </TableCell>
                     </TableRow>

@@ -1,14 +1,15 @@
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Box, Chip, Typography, Divider } from "@mui/material";
+import { Box, Chip, Typography, Divider, Skeleton } from "@mui/material";
 import { unixToDate } from "../utils/date";
 import CustomButton from "../components/common/CustomButton";
 
 const TaskDetailsPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const task = useSelector(state => state.tasks.list.find(t => t.id === Number(id)));
+    const { list } = useSelector(state => state.tasks);
 
+    const task = list.find(t => t.id === Number(id));
     if (!task) {
         return <Navigate to="/tasks" replace />;
     }
