@@ -6,6 +6,7 @@ import PublicRoute from "./routes/PublicRoute";
 const Registration = lazy(() => import("./pages/Registration"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const TaskDetailsPage = lazy(() => import("./pages/TaskDetailsPage"));
 const NotFound = lazy(() => import("./components/NotFound"));
 
 function App() {
@@ -24,10 +25,18 @@ function App() {
             }
           />
           <Route
-            path='/dashboard'
+            path='/tasks'
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tasks/:id"
+            element={
+              <ProtectedRoute>
+                <TaskDetailsPage />
               </ProtectedRoute>
             }
           />

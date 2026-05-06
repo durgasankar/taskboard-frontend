@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, lazy, Suspense, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { Pagination, Skeleton } from "@mui/material";
 import useToast from "../hooks/useToast";
 import { fetchTasks } from "../reducers/taskThunks";
@@ -42,7 +43,7 @@ const Dashboard = () => {
                 <TaskTable
                     tasks={ tasks }
                     onDelete={ id => setDeleteId(id) }
-                    onEdit={task => setEditTask(task)}
+                    onEdit={ task => setEditTask(task) }
                 />
             </Suspense>
             <Pagination
@@ -52,6 +53,7 @@ const Dashboard = () => {
                 color="primary"
                 sx={ { display: "flex", justifyContent: "center", mt: 2 } }
             />
+            <Outlet />
             <DeleteConfirmDialog
                 open={ !!deleteId }
                 onClose={ () => setDeleteId(null) }

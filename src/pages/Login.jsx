@@ -57,7 +57,7 @@ const Login = () => {
             localStorage.setItem('token', response.token)
             localStorage.setItem('userinfo', JSON.stringify(response.data));
             successToast(response?.message);
-            navigate('/dashboard');
+            navigate('/tasks');
         } catch (error) {
             errorToast(error?.message || "Something went wrong");
         }
