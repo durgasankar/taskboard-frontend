@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useToast from "../hooks/useToast";
 import { fetchTasks } from "../reducers/taskThunks";
@@ -10,11 +10,16 @@ import { Pagination } from "@mui/material";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    // const tasks = useSelector(state => state.tasks.list);
+    const { successToast } = useToast();
     const tasks = useSelector(selectPagedTasks);
-    const { showToast } = useToast();
+    const filteredTasks = useSelector(selectFilteredTasks);
+    const { pageSize, currentPage } = useSelector(state => state.tasks);
 
     const [deleteId, setDeleteId] = useState(null);
+
+    const totalPages = useMemo(() => {
+        return Math.ceil(filteredTasks.length / pageSize);
+    }, [filteredTasks.length, pageSize]);
 
     useEffect(() => {
         dispatch(fetchTasks());
@@ -22,15 +27,9 @@ const Dashboard = () => {
 
     const handleDelete = () => {
         dispatch(deleteTask(deleteId));
-        showToast("Task deleted successfully", "success");
+        successToast("Task deleted successfully", "success");
         setDeleteId(null);
     };
-
-    const filteredTasks = useSelector(selectFilteredTasks);
-    const { pageSize, currentPage } = useSelector(state => state.tasks);
-
-    const totalPages = Math.ceil(filteredTasks.length / pageSize);
-
 
     return (
         <>

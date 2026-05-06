@@ -1,16 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import '../../assets/css/header.css';
 import useToast from '../../hooks/useToast';
 import { useDebounce } from '../../hooks/useDebounce';
 import { setSearchQuery } from '../../reducers/taskSlices';
+import { selectFilteredTasks } from '../../reducers/taskSelector';
 
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const { successToast } = useToast();
     const userInfo = JSON.parse(localStorage.getItem('userinfo'));
-    console.log(userInfo)
+
+    const filteredTasks = useSelector(selectFilteredTasks);
+    const totalMatches = filteredTasks.length;
+
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -27,12 +31,13 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1>✅{ userInfo.firstName }'s TaskHub</h1>
+            <h1>✅{`${userInfo.firstName}'s TaskHub [${totalMatches}]`}</h1>
             <input
                 type="text"
                 placeholder="Search Task..."
                 onChange={ event => debouncedSearch(event.target.value) }
             />
+
             <button className="logout-btn" onClick={ handleLogout }>
                 Logout
             </button>
