@@ -30,7 +30,7 @@ const TaskTable = ({ tasks, onDelete }) => {
             >
                 <TableHead>
                     <TableRow>
-                        { ["Title", "Assigned To", "Status", "Priority"].map(col => (
+                        { ["Title", "Status", "Priority"].map(col => (
                             <TableCell
                                 key={ col }
                                 sx={ { fontWeight: 600, backgroundColor: "#fafafa" } }
@@ -58,11 +58,12 @@ const TaskTable = ({ tasks, onDelete }) => {
                             onClick={ () => navigate(`/tasks/${task.id}`) }
                         >
                             <TableCell>{ task.title }</TableCell>
-                            <TableCell>{ task.assignedTo }</TableCell>
                             <TableCell>
                                 <Chip
                                     size="small"
-                                    label={ task.status }
+                                    label={ task.completed ? 'Completed': 'Pending' }
+                                    style={{borderRadius: '3px'}}
+                                    color={task?.completed ? "success": "warning"}
                                 />
                             </TableCell>
                             <TableCell>
@@ -70,9 +71,9 @@ const TaskTable = ({ tasks, onDelete }) => {
                                     size="small"
                                     label={ task.priority }
                                     color={
-                                        task.priority === "High"
+                                        task.priority === "P0"
                                             ? "error"
-                                            : task.priority === "Medium"
+                                            : task.priority === "P1"
                                                 ? "warning"
                                                 : "success"
                                     }
