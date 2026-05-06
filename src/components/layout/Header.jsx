@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import '../../assets/css/header.css';
 import useToast from '../../hooks/useToast';
-import { customDebounce } from '../../utils/customDebounce';
+import { useDebounce } from '../../hooks/useDebounce';
 import { setSearchQuery } from '../../reducers/taskSlices';
 
 const Header = () => {
@@ -19,9 +19,11 @@ const Header = () => {
         navigate('/signin', { replace: true });
     }
 
-    const debouncedSearch = value => {
-        customDebounce(dispatch(setSearchQuery(value)), 400);
-    }
+    const debouncedSearch = useDebounce(value =>
+        dispatch(setSearchQuery(value))
+    );
+
+
 
     return (
         <header className="header">

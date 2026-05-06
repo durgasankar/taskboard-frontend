@@ -8,7 +8,9 @@ const taskSlice = createSlice({
         loading: false,
         error: null,
         // pagination
-        searchQuery: ''
+        searchQuery: "",
+        currentPage: 1,
+        pageSize: 10,
     },
     reducers: {
         deleteTask(state, action) {
@@ -22,7 +24,11 @@ const taskSlice = createSlice({
         },
         setSearchQuery(state, action) {
             state.searchQuery = action.payload;
-        }
+            state.currentPage = 1;
+        },
+        setCurrentPage(state, action) {
+            state.currentPage = action.payload;
+        },
     },
     extraReducers: builder => {
         builder
@@ -38,5 +44,5 @@ const taskSlice = createSlice({
     }
 });
 
-export const { deleteTask, updateTask, setSearchQuery } = taskSlice.actions;
+export const { deleteTask, updateTask, setSearchQuery, setCurrentPage } = taskSlice.actions;
 export default taskSlice.reducer;
