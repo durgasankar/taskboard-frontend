@@ -10,7 +10,7 @@ const taskSlice = createSlice({
         // pagination
         searchQuery: "",
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 12,
     },
     reducers: {
         deleteTask(state, action) {

@@ -8,13 +8,12 @@ import { selectFilteredTasks } from '../../reducers/taskSelector';
 
 const Header = () => {
     const navigate = useNavigate();
+    const filteredTasks = useSelector(selectFilteredTasks);
     const dispatch = useDispatch()
     const { successToast } = useToast();
+
     const userInfo = JSON.parse(localStorage.getItem('userinfo'));
-
-    const filteredTasks = useSelector(selectFilteredTasks);
     const totalMatches = filteredTasks.length;
-
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -27,8 +26,6 @@ const Header = () => {
         dispatch(setSearchQuery(value))
     );
 
-
-
     return (
         <header className="header">
             <h1>✅{`${userInfo.firstName}'s TaskHub [${totalMatches}]`}</h1>
@@ -37,7 +34,6 @@ const Header = () => {
                 placeholder="Search Task..."
                 onChange={ event => debouncedSearch(event.target.value) }
             />
-
             <button className="logout-btn" onClick={ handleLogout }>
                 Logout
             </button>
