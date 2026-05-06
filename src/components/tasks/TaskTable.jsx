@@ -12,8 +12,9 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import { unixToDate } from '../../utils/date';
 
-const TaskTable = ({ tasks, onDelete }) => {
+const TaskTable = ({ tasks, onDelete, onEdit }) => {
     const navigate = useNavigate();
 
     return (
@@ -30,7 +31,7 @@ const TaskTable = ({ tasks, onDelete }) => {
             >
                 <TableHead>
                     <TableRow>
-                        { ["Title", "Status", "Priority"].map(col => (
+                        { ["Title", "Status", "Start Date", "End Date", "Priority"].map(col => (
                             <TableCell
                                 key={ col }
                                 sx={ { fontWeight: 600, backgroundColor: "#fafafa" } }
@@ -61,11 +62,13 @@ const TaskTable = ({ tasks, onDelete }) => {
                             <TableCell>
                                 <Chip
                                     size="small"
-                                    label={ task.completed ? 'Completed': 'Pending' }
-                                    style={{borderRadius: '3px'}}
-                                    color={task?.completed ? "success": "warning"}
+                                    label={ task.completed ? 'Completed' : 'Pending' }
+                                    style={ { borderRadius: '3px' } }
+                                    color={ task?.completed ? "success" : "warning" }
                                 />
                             </TableCell>
+                            <TableCell>{ unixToDate(task.startDate) }</TableCell>
+                            <TableCell>{ unixToDate(task.endDate) }</TableCell>
                             <TableCell>
                                 <Chip
                                     size="small"
@@ -83,9 +86,11 @@ const TaskTable = ({ tasks, onDelete }) => {
                                 align="right"
                                 onClick={ e => e.stopPropagation() }
                             >
-                                <IconButton size="small">
-                                    <EditIcon fontSize="small" />
-                                </IconButton>
+                                {
+                                    !task.completed && <IconButton size="small" onClick={ () => onEdit(task) }>
+                                        <EditIcon fontSize="small" />
+                                    </IconButton>
+                                }
                                 <IconButton size="small" color="error">
                                     <DeleteIcon fontSize="small" />
                                 </IconButton>
