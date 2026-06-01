@@ -5,6 +5,10 @@ The application demonstrates clean state management, scalable architecture, and 
 
 ---
 
+🚀 **Live Demo (Surge Hosted):**  
+👉 https://taskboard.surge.sh
+
+
 ## ✨ Overview
 
 This application allows authenticated users to view, manage, and update tasks efficiently.  
